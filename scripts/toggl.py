@@ -37,8 +37,27 @@ def insert_to_notion():
     sorts = [{"property": "时间", "direction": "descending"}]
     page_size = 1
     response = notion_helper.query(
-        database_id=notion_helper.time_database_id, sorts=sorts, page_size=page_size
-    )
+    database_id=notion_helper.time_database_id,
+    sorts=[{"property": "时间", "direction": "descending"}],
+    page_size=1,
+    filter={
+        "and": [
+            {
+                "property": "Work Tasks",
+                "relation": {
+                    "is_empty": True
+                }
+            },
+            {
+                "property": "Source",
+                "select": {
+                    "does_not_equal": "Notion"
+                }
+            }
+        ]
+    }
+)
+
     if len(response.get("results")) > 0:
         start = (
             response.get("results")[0]
