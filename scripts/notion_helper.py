@@ -107,16 +107,17 @@ class NotionHelper:
                 self.database_id_dict[
                     child.get("child_database").get("title")
                 ] = child.get("id")
-            elif child["type"] == "embed" and child.get("embed").get("url"):
-                if child.get("embed").get("url").startswith("https://heatmap.malinkang.com/"):
-                    self.heatmap_block_id = child.get("id")
+            # elif child["type"] == "embed" and child.get("embed").get("url"):
+              #     if child.get("embed").get("url").startswith("https://heatmap.malinkang.com/"):
+                #         self.heatmap_block_id = child.get("id")
+
             # 如果子块有子块，递归调用函数
             if "has_children" in child and child["has_children"]:
                 self.search_database(child["id"])
-    @retry(stop_max_attempt_number=3, wait_fixed=5000)
-    def update_heatmap(self, block_id, url):
+      #   @retry(stop_max_attempt_number=3, wait_fixed=5000)
+       #  def update_heatmap(self, block_id, url):
         # 更新 image block 的链接
-        return self.client.blocks.update(block_id=block_id, embed={"url": url})
+         #  return self.client.blocks.update(block_id=block_id, embed={"url": url})
 
 
     def get_week_relation_id(self, date):
