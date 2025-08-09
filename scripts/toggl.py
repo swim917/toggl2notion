@@ -96,9 +96,8 @@ def insert_to_notion():
                     stop = stop.in_timezone("Asia/Shanghai").int_timestamp
                     item["时间"] = (start, stop)
                     
-                   # ✅ 加在这里，注意对齐
-                    date_value = pendulum.from_timestamp(stop, tz="Asia/Shanghai").to_datetime_string()
-                    item["日期"] = (date_value, None)
+        
+                    item["日期"] = (stop, None)
 
 
                     response = requests.get(
