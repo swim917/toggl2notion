@@ -13,6 +13,7 @@ MULTI_SELECT = "multi_select"
 time_properties_type_dict = {
     "标题":TITLE,
     "时间":DATE,
+    "日期": DATE,
     "Id":NUMBER,
     "备注":RICH_TEXT,
     "标签":RELATION,
