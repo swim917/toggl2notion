@@ -190,8 +190,7 @@ def get_properties(dict1, dict2):
                 property = {
                     "date": {
                         "start": start,
-                        "end": None,
-                        "time_zone": "Asia/Shanghai",
+                        "end": None
                     }
                 }
             else:
