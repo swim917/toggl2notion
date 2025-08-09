@@ -207,7 +207,7 @@ def get_properties(dict1, dict2):
                     }
                 }
         elif type == URL:
-                property = {"url": value}
+            property = {"url": value}
         elif type == SELECT:
             property = {"select": {"name": value}}
         elif type == MULTI_SELECT:
