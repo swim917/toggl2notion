@@ -97,8 +97,9 @@ def insert_to_notion():
                     item["时间"] = (start, stop)
                     
                    # ✅ 加在这里，注意对齐
-                    date_value = pendulum.from_timestamp(stop, tz="Asia/Shanghai").to_date_string()
+                    date_value = pendulum.from_timestamp(stop, tz="Asia/Shanghai").to_datetime_string()
                     item["日期"] = (date_value, None)
+
 
                     response = requests.get(
                         f"https://api.track.toggl.com/api/v9/workspaces/{workspace_id}/projects/{project_id}",
