@@ -181,11 +181,10 @@ def get_properties(dict1, dict2):
                     {"type": "external", "name": "Cover", "external": {"url": value}}
                 ]
             }
-         elif type == DATE:
-                start = value[0]
-                end = value[1]
-                
-                # 如果是单独用于“日期”的字段，返回 YYYY-MM-DD
+        elif type == DATE:
+            start = value[0]
+            end = value[1]
+            # 如果是单独用于“日期”的字段，返回 YYYY-MM-DD
         if isinstance(start, int) and end is None:
         start = pendulum.from_timestamp(start, tz="Asia/Shanghai").to_date_string()
         property = {
@@ -195,11 +194,10 @@ def get_properties(dict1, dict2):
                 "time_zone": "Asia/Shanghai",
             }
         }
-        
         # 否则处理为完整带时间的字段
         else:
-        property = {
-            "date": {
+            property = {
+                "date": {
                 "start": pendulum.from_timestamp(
                     start, tz="Asia/Shanghai"
                 ).to_datetime_string(),
@@ -207,8 +205,8 @@ def get_properties(dict1, dict2):
                     end, tz="Asia/Shanghai"
                 ).to_datetime_string() if end else None,
                 "time_zone": "Asia/Shanghai",
+                }
             }
-        }
 
 
         elif type == URL:
