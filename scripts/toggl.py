@@ -95,6 +95,11 @@ def insert_to_notion():
                     start = start.in_timezone("Asia/Shanghai").int_timestamp
                     stop = stop.in_timezone("Asia/Shanghai").int_timestamp
                     item["时间"] = (start, stop)
+                    
+                   # 提取日期字段（上海时区的结束时间）
+                   date_value = pendulum.from_timestamp(stop, tz="Asia/Shanghai").to_date_string()
+                   item["日期"] = date_value
+
                     response = requests.get(
                         f"https://api.track.toggl.com/api/v9/workspaces/{workspace_id}/projects/{project_id}",
                         auth=auth,
