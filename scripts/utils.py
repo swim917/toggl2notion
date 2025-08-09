@@ -194,21 +194,20 @@ def get_properties(dict1, dict2):
                         "time_zone": "Asia/Shanghai",
                     }
                 }
-                # 否则处理为完整带时间的字段
-        else:
-            property = {
-                "date": {
-                    "start": pendulum.from_timestamp(
-                        start, tz="Asia/Shanghai"
-                    ).to_datetime_string(),
-                    "end": pendulum.from_timestamp(
-                        end, tz="Asia/Shanghai"
-                    ).to_datetime_string() if end else None,
-                    "time_zone": "Asia/Shanghai",
+            else:
+                property = {
+                    "date": {
+                        "start": pendulum.from_timestamp(
+                            start, tz="Asia/Shanghai"
+                        ).to_datetime_string(),
+                        "end": pendulum.from_timestamp(
+                            end, tz="Asia/Shanghai"
+                        ).to_datetime_string() if end else None,
+                        "time_zone": "Asia/Shanghai",
+                    }
                 }
-            }
-        elif type == URL:
-            property = {"url": value}
+            elif type == URL:
+                property = {"url": value}
         elif type == SELECT:
             property = {"select": {"name": value}}
         elif type == MULTI_SELECT:
