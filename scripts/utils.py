@@ -207,8 +207,6 @@ def get_properties(dict1, dict2):
                     "time_zone": "Asia/Shanghai",
                 }
             }
-
-
         elif type == URL:
             property = {"url": value}
         elif type == SELECT:
