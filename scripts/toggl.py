@@ -76,6 +76,7 @@ def insert_to_notion():
         for task in time_entries:
             if task.get("pid") is not None and task.get("stop") is not None:
                 item = {}
+                item["Source"] = "Toggl"
                 tags = task.get("tags")
                 if tags:
                     item["标签"] = [
