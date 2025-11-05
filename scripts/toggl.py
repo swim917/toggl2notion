@@ -2,6 +2,8 @@ import os
 from requests.auth import HTTPBasicAuth
 import pendulum
 from retrying import retry
+import time
+from retrying import retry
 import requests
 from notion_helper import NotionHelper
 import utils
@@ -13,6 +15,7 @@ load_dotenv()
 
 
 def get_time_entries():
+    
     # 获取当前UTC时间
     now = pendulum.now("UTC")
     # toggl只支持90天的数据
@@ -27,6 +30,10 @@ def get_time_entries():
     time_entries = response.json()
     return time_entries
 
+@retry(stop_max_attempt_number=5, wait_fixed=2000)
+def safe_create_page(notion_helper, parent, properties, icon):
+    """带重试的 Notion 创建函数"""
+    return notion_helper.create_page(parent=parent, properties=properties, icon=icon)
 
 def insert_to_notion():
     # 获取当前UTC时间
