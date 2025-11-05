@@ -1,12 +1,11 @@
 import logging
 import os
 import re
-import time
 
 from notion_client import Client
 from retrying import retry
-from datetime import timedelta
-
+from dotenv import load_dotenv
+load_dotenv()
 from utils import (
     format_date,
     get_date,
