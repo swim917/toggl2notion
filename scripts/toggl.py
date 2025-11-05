@@ -8,6 +8,8 @@ import utils
 
 from config import time_properties_type_dict, TAG_ICON_URL
 from utils import get_icon, split_emoji_from_string
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def get_time_entries():
