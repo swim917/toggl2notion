@@ -76,7 +76,7 @@ def insert_to_notion():
     if response.ok:
         time_entries = response.json()
         time_entries.sort(key=lambda x: x["start"], reverse=False)
-        for task in time_entries:
+        for i, task in enumerate(time_entries):
             if task.get("pid") is not None and task.get("stop") is not None:
                 item = {}
                 item["Source"] = "Toggl"
@@ -149,7 +149,9 @@ def insert_to_notion():
                     properties, pendulum.from_timestamp(stop, tz="Asia/Shanghai")
                 )
                 icon = {"type": "emoji", "emoji": emoji}
-                notion_helper.create_page(parent=parent, properties=properties, icon=icon)
+                print(f"[{i+1}/{len(time_entries)}] syncing {task.get('description')}")
+                safe_create_page(notion_helper, parent, properties, icon)
+                time.sleep(0.5)  # 限速：防止 Notion API 429
     else:
         print(f"get toggl data error {response.text}")
 
