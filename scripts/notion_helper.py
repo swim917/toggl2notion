@@ -105,7 +105,6 @@ class NotionHelper:
             # elif child["type"] == "embed" and child.get("embed").get("url"):
               #     if child.get("embed").get("url").startswith("https://heatmap.malinkang.com/"):
                 #         self.heatmap_block_id = child.get("id")
-
             # 如果子块有子块，递归调用函数
             if "has_children" in child and child["has_children"]:
                 self.search_database(child["id"])
