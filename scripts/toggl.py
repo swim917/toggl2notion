@@ -67,19 +67,40 @@ def insert_to_notion():
     }
 )
 
-    if len(response.get("results")) > 0:
-        start = (
+    # 从 Notion 中取最近一条时间
+    if len(response.get("results", [])) > 0:
+         date_obj = (
             response.get("results")[0]
-            .get("properties")
-            .get("时间")
-            .get("date")
-            .get("end")
+            .get("properties", {})
+            .get("时间", {})
+            .get("date", {})
         )
+
+        # 优先用 end，没有就用 start
+        start = date_obj.get("end") or date_obj.get("start")
+
+    # 如果 Notion 没有任何时间，或时间为空，兜底用 90 天前
+    if not start:
+        start = (
+            pendulum.now("UTC")
+            .subtract(days=90)
+            .start_of("day")
+            .to_iso8601_string()
+        )
+    else:
+        # 统一转成 UTC，保证 Toggl 不挑刺
+        start = pendulum.parse(start).in_timezone("UTC").to_iso8601_string()
+        
+    end = pendulum.now("UTC").to_iso8601_string()
+
     params = {"start_date": start, "end_date": end}
     response = requests.get(
         "https://api.track.toggl.com/api/v9/me/time_entries", params=params, auth=auth
     )
+
     print(response.text)
+    print("Toggl response:", response.text)
+
     if response.ok:
         time_entries = response.json()
         time_entries.sort(key=lambda x: x["start"], reverse=False)
