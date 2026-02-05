@@ -75,9 +75,9 @@ def insert_to_notion():
             .get("时间", {})
             .get("date", {})
         )
-
-        # 优先用 end，没有就用 start
-        start = date_obj.get("end") or date_obj.get("start")
+        
+    # 优先用 end，没有就用 start
+    start = date_obj.get("end") or date_obj.get("start")
 
     # 如果 Notion 没有任何时间，或时间为空，兜底用 90 天前
     if not start:
