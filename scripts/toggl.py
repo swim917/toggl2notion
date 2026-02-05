@@ -135,6 +135,8 @@ def insert_to_notion():
                         f"https://api.track.toggl.com/api/v9/workspaces/{workspace_id}/projects/{project_id}",
                         auth=auth,
                     )
+                    response.raise_for_status()
+                    
                     project = response.json().get("name")
                     emoji, project = split_emoji_from_string(project)
                     item["标题"] = project
